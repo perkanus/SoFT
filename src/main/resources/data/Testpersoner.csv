@@ -1,0 +1,4 @@
+Personnummer,Skapa Fardtjanstarende,Skapa Sjukresearende,Resenar finns,Fardtjanstarende ID,Sjukresearende ID,Kundnummer,Fardtjansttillstand ID,Sjukresetillstand ID,Fardtjanstkort ID,Sjukresekort ID,Fardsatt,Antal ledsagare,Elmoped,Ensamakning,Framsatesplacering,Allergianpassat fordon,"Ledar-service-eller assistanshund",Lansgransdispens,Battaxi,Beslut,Beslutskod,IDEMIA Filnamn
+194507018820,Y,N,N,EMPTY,,,,,,,Bartaxi,1,Ja,Ja,Ja,Ja,Ja,Ja,Ja,Beviljad,EMPTY,
+194510106331,Y,N,N,EMPTY,,,,,,,Rullstolstaxi,1,Nej,Nej,Nej,Nej,Nej,Nej,Nej,Beviljad,EMPTY,
+194510168885,Y,N,N,EMPTY,,EMPTY,EMPTY,EMPTY,EMPTY,EMPTY,Taxi,3,Ja,Nej,,Nej,Ja,,Nej,Beviljad,EMPTY,EMPTY

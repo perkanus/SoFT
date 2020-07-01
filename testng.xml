@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite preserve-order="true" name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="Skapa Resenärer">
+        <classes>
+            <class name="SoFT.SQLBasedTests">
+				<methods>
+					<include name="VerifyResenar" />
+					<include name="AddResenar" />
+					<exclude name="AddArenden" />
+					<exclude name="ApproveArenden" />
+					<exclude name="GetFardtjansttillstandData" />
+					<exclude name="GetFTJFardbevisData" />
+				</methods>
+			</class>
+        </classes>
+    </test>
+</suite>

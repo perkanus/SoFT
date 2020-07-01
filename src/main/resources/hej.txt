@@ -1,0 +1,216 @@
+       //*[@id="crmGrid_findCriteriaButton"]
+
+        new Actions(driver).click();
+        List<WebElement> custList = driver.findElements(By.xpath("//*[@id=\"gridBodyTable\"]/tbody/tr"));
+        for(WebElement iElem: custList){
+            driver.executeJavaScript("arguments[0].click();", iElem);
+            sleep(200);
+        }
+
+        WebElement ele = driver.findElement(By.xpath("//a[contains(.,'Backsvala Pilgrimsfalk')]"));
+        driver.executeJavaScript("arguments[0].click();", ele);
+
+
+
+        logger.info("Fönster(P): " + parentWindowHandle);
+        driver.switchTo().defaultContent();
+        wait.until(ExpectedConditions.elementToBeClickable(btnSoftCRM));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt( "contentIFrame1"));
+        // Kollapsa
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"tab_arende_headerText_anchor\"]"))).click();
+        // Nytt ärende
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"fardtjanstarenden_addImageButton\"]"))).click();
+        sleep(5000);
+
+        /*
+        Byter till föräldrarfönstret för att sedan spara alla fönster i en variabel för att byta mellan
+        */
+        Set< String > windowHandles = driver.getWindowHandles();
+
+        for(String handle : windowHandles )
+        {
+            if (!handle.equals(parentWindowHandle)) {
+                childWindowHandle = handle;
+            }
+            //driver.switchTo().window( handle );
+        }
+
+
+        /*
+        Vänta på att formuläret laddas in i nya  fönstret. Byter
+         */
+        driver.switchTo().window( childWindowHandle );
+        logger.info("Fönster(C): " + childWindowHandle);
+        wait.until(ExpectedConditions.elementToBeClickable(btnSoftCRM));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt( "contentIFrame0"));
+        //wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"tab_arendehantering_content\"]")));
+
+
+        // Spara .defaultContent();
+        //*[@id="ftj_fardtjanstarende|NoRelationship|Form|Mscrm.Form.ftj_fardtjanstarende.Save"]/span/a
+        // Spara och Stäng .defaultContent();
+        //*[@id="ftj_fardtjanstarende|NoRelationship|Form|Mscrm.Form.ftj_fardtjanstarende.SaveAndClose"]/span/a
+
+
+
+
+   public boolean addTjansteresa() {
+        /*
+        Sparar huvudfönstret för att kunna byta mella den och nya fönster som kommer upp
+         */
+        String parentWindowHandle = driver.getWindowHandle();
+        String childWindowHandle = "";
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        driver.switchTo().defaultContent();
+        wait.until(ExpectedConditions.elementToBeClickable(ribbonBtnArendehanteringArrow)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@id='nav_contacts']"))).click();
+
+        driver.navigate().refresh();
+
+
+        /*
+        Välj och klicka på en resenär
+         */
+
+
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"navBarOverlay\"][contains(@style, 'display: none')]")));
+
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt( "contentIFrame0"));
+
+
+
+        //*[@id="crmGrid_findCriteriaButton"]
+
+        new Actions(driver).click();
+        List<WebElement> custList = driver.findElements(By.xpath("//*[@id=\"gridBodyTable\"]/tbody/tr"));
+
+        List<WebElement> columns = custList.get(new Random().nextInt(custList.size())).findElements(By.tagName("td"));
+        logger.info(columns.get(1).getText());
+
+
+        //driver.executeJavaScript("arguments[0].dblclick();", custList.get(2));
+
+        WebElement ele = driver.findElement(By.xpath("//a[contains(.,'" + columns.get(1).getText() + "')]"));
+        driver.executeJavaScript("arguments[0].click();", ele);
+
+
+
+        driver.switchTo().defaultContent();
+        wait.until(ExpectedConditions.elementToBeClickable(btnSoftCRM));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt( "contentIFrame1"));
+        // Kollapsa
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"tab_arende_headerText_anchor\"]"))).click();
+        // Nytt ärende
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"fardtjanstarenden_addImageButton\"]"))).click();
+        sleep(5000);
+
+        /*
+        Byter till föräldrarfönstret för att sedan spara alla fönster i en variabel för att byta mellan
+        */
+        Set< String > windowHandles = driver.getWindowHandles();
+
+        for(String handle : windowHandles )
+        {
+            if (!handle.equals(parentWindowHandle)) {
+                childWindowHandle = handle;
+            }
+            //driver.switchTo().window( handle );
+        }
+
+
+        /*
+        Vänta på att formuläret laddas in i nya  fönstret. Byter
+         */
+        driver.switchTo().window( childWindowHandle );
+        logger.info("Fönster(C): " + childWindowHandle);
+        wait.until(ExpectedConditions.elementToBeClickable(btnSoftCRM));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt( "contentIFrame0"));
+        //wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"tab_arendehantering_content\"]")));
+
+
+        // Spara .defaultContent();
+        //*[@id="ftj_fardtjanstarende|NoRelationship|Form|Mscrm.Form.ftj_fardtjanstarende.Save"]/span/a
+        // Spara och Stäng .defaultContent();
+        //*[@id="ftj_fardtjanstarende|NoRelationship|Form|Mscrm.Form.ftj_fardtjanstarende.SaveAndClose"]/span/a
+        return true;
+    }
+
+
+
+
+    public void slasken() {
+        WebDriverWait wait = new WebDriverWait(driver,10);
+
+        wait.until(ExpectedConditions.elementToBeClickable(btnSoftCRM)).click();
+        //wait.until(ExpectedConditions.elementToBeClickable(btnArendeHantering)).click();
+
+        //driver.findElement(By.xpath("//span[@id='TabCS']")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@id='TabCS']"))).click();
+
+        //driver.findElement(By.xpath("//a[@id='nav_contacts']/span[2]")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@id='nav_contacts']/span[2]"))).click();
+
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt( "contentIFrame0"));
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(.,'Backsvala Pilgrimsfalk')]")));
+
+        WebElement ele = driver.findElement(By.xpath("//a[contains(.,'Backsvala Pilgrimsfalk')]"));
+        driver.executeJavaScript("arguments[0].click();", ele);
+
+        //*[@id="tab_arende_Expander"]
+        //sleep(10000);
+        // Catch the loading pic
+        //wait.until(ExpectedConditions.attributeContains(By.id("containerLoadingProgress"), "style", "none"));
+        //wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt( 0));
+        //wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"tab_arende_Expander\"]")));
+        //wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt( "contentIFrame1"));
+        //*[@id="tab_arende_header_image_div"]/a
+        //sleep(5000);
+
+        /*
+        List<WebElement> iframes = driver.findElements(By.xpath("//a"));
+        logger.info(iframes.size());
+        for (WebElement elem: iframes)
+        logger.info(elem.getAttribute(elem.getText()));
+        /*
+        driver.findElement(By.xpath("//span[@id='TabCS']")).click();
+        driver.findElement(By.xpath("//a[@id='nav_contacts']/span[2]")).click();
+        sleep(2000);
+        driver.switchTo().frame("contentIFrame0");
+        WebElement ele = driver.findElement(By.xpath("//a[contains(.,'Backsvala Pilgrimsfalk')]"));
+        driver.executeJavaScript("arguments[0].click();", ele);
+
+        sleep(10000);
+        List<WebElement> iframes = driver.findElements(By.xpath("//a"));
+
+        logger.info(iframes.size());
+        for (WebElement elem: iframes)
+            logger.info("Element: " + elem.getAttribute("id"));
+        */
+
+
+        //driver.switchTo().frame(0);
+
+
+        //driver.findElement(By.linkText("Ärende")).click();
+        //ele = driver.findElement(By.id("tab_arende_headerText_anchor"));
+        //driver.executeJavaScript("arguments[0].click();", ele);
+
+
+
+
+
+        //driver.findElement(By.xpath("//div[@id='tab_arende_header_image_div']/a/img")).click();
+        //sleep(2000);
+        //driver.findElement(By.xpath("//a[@id='fardtjanstarenden_addImageButton']/img")).click();
+        //sleep(10000);
+        //a[@id='fardtjanstarenden_addImageButton']/img
+
+        // Required to switch to the correct Frame
+        //driver.switchTo().frame("contentIFrame0");
+        //driver.switchTo().frame("top");
+        //
+
+        //return elementHelper.isElementDisplayedWithinTime(txtAvliden, 15000);
+
+    }
